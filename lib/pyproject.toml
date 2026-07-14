@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ruvic-gmail-imap-connector"
+version = "1.0.0"
+description = "Conector Ruvic para Gmail vía IMAP/SMTP con usuario y contraseña de aplicación"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["ruvic_gmail_imap_connector*"]

@@ -1,0 +1,49 @@
+{
+  "id": "gmail_imap",
+  "name": "Gmail (IMAP/SMTP)",
+  "version": "1.0.0",
+  "description": "Lectura y envío de correos en Gmail mediante IMAP/SMTP con usuario y Contraseña de aplicación, sin flujo OAuth",
+  "category": "messaging",
+  "library": {
+    "package": "ruvic-gmail-imap-connector",
+    "install": "pip install git+https://github.com/Dgirto/Gmail-IMAP.git#subdirectory=lib",
+    "import_name": "ruvic_gmail_imap_connector"
+  },
+  "auth_modes": [
+    {
+      "id": "app_password",
+      "label": "Usuario y Contraseña de aplicación",
+      "fields": [
+        {
+          "key": "email",
+          "label": "Correo de Gmail",
+          "type": "text",
+          "required": true,
+          "placeholder": "soporte@tuempresa.com"
+        },
+        {
+          "key": "app_password",
+          "label": "Contraseña de aplicación",
+          "type": "password",
+          "secret": true,
+          "required": true,
+          "help_text": "NO es la contraseña normal de la cuenta. Genérala en myaccount.google.com/apppasswords (requiere verificación en 2 pasos activada)."
+        },
+        {
+          "key": "request_timeout",
+          "label": "Timeout de solicitud (segundos)",
+          "type": "number",
+          "required": false,
+          "default": "30"
+        }
+      ]
+    }
+  ],
+  "env_prefix": "RUVIC_GMAIL_IMAP_",
+  "operations": ["mail.list", "mail.read", "mail.send", "mail.send_with_attachment"],
+  "test_connection": true,
+  "docs": {
+    "skill": "SKILL.md",
+    "permissions_note": "Requiere una Contraseña de aplicación de Gmail (myaccount.google.com/apppasswords), lo cual exige tener la verificación en 2 pasos activada en la cuenta. No usa OAuth2 ni requiere configuración en Google Cloud Console. El conector se conecta a los servidores fijos imap.gmail.com:993 y smtp.gmail.com:465."
+  }
+}
