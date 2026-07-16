@@ -1,384 +1,457 @@
 <!DOCTYPE html>
-<html lang="es" data-lang="es">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conector Gmail (IMAP/SMTP) — Guía de configuración | Ruvic</title>
+  <title data-i18n="doc_title">Conector Gmail (IMAP/SMTP) — Ruvic</title>
   <link rel="stylesheet" href="assets/ruvic.css">
 </head>
-<body>
+<body class="guide">
+  <main class="ruvic-container">
 
-<header class="ruvic-header">
-  <div class="ruvic-header-inner">
-    <p class="ruvic-wordmark">Ruvic</p>
+    <nav class="ruvic-toc" aria-label="Índice">
+      <h2 data-i18n="toc_title">Contenido</h2>
+      <ol>
+        <li><a href="#que-es" data-i18n="toc.que_es">¿Qué es y para qué sirve?</a></li>
+        <li><a href="#prerrequisitos" data-i18n="toc.prerrequisitos">Prerrequisitos</a></li>
+        <li><a href="#configuracion-fabricante" data-i18n="toc.configuracion_fabricante">Configuración en el fabricante</a></li>
+        <li><a href="#permisos" data-i18n="toc.permisos">Permisos requeridos</a></li>
+        <li><a href="#configuracion-ruvic" data-i18n="toc.configuracion_ruvic">Configuración en Ruvic</a></li>
+        <li><a href="#verificacion" data-i18n="toc.verificacion">Verificación</a></li>
+        <li><a href="#solucion-problemas" data-i18n="toc.solucion_problemas">Solución de problemas</a></li>
+        <li><a href="#faq-seguridad" data-i18n="toc.faq_seguridad">Preguntas frecuentes y notas de seguridad</a></li>
+      </ol>
+    </nav>
 
-    <h1>
-      <span class="lang-es">Conector Gmail (IMAP/SMTP) — Guía de configuración</span>
-      <span class="lang-en">Gmail (IMAP/SMTP) Connector — Setup Guide</span>
-    </h1>
-    <p class="subtitle">
-      <span class="lang-es">Conecta un buzón de Gmail a Ruvic Engine en menos de 2 minutos, con tu correo y una Contraseña de aplicación — sin permisos de administrador ni Google Cloud Console.</span>
-      <span class="lang-en">Connect a Gmail mailbox to Ruvic Engine in under 2 minutes, with your email and an App Password — no admin permissions or Google Cloud Console needed.</span>
-    </p>
+    <h1 data-i18n="guide_title">Gmail (IMAP/SMTP)</h1>
+    <p class="guide-updated">{{ULTIMA_ACTUALIZACION}}</p>
 
-    <div class="meta">
-      <span class="ruvic-badge">Gmail</span>
-      <span class="ruvic-badge">IMAP / SMTP</span>
-      <span class="ruvic-badge">v1.0.0</span>
-    </div>
+    <!-- ============ 1. QUÉ ES ============ -->
+    <section>
+      <h2 id="que-es" data-i18n="section.que_es">¿Qué es y para qué sirve?</h2>
 
-    <div class="lang-switch" role="group" aria-label="Idioma / Language">
-      <button type="button" data-set-lang="es" class="active">ES</button>
-      <button type="button" data-set-lang="en">EN</button>
-    </div>
-  </div>
-</header>
-
-<main class="ruvic-container">
-
-  <!-- ============ ÍNDICE ============ -->
-  <nav class="ruvic-toc" aria-label="Índice">
-    <h2><span class="lang-es">Contenido</span><span class="lang-en">Contents</span></h2>
-    <ol>
-      <li><a href="#que-es"><span class="lang-es">¿Qué es y para qué sirve?</span><span class="lang-en">What is it and what is it for?</span></a></li>
-      <li><a href="#prerrequisitos"><span class="lang-es">Prerrequisitos</span><span class="lang-en">Prerequisites</span></a></li>
-      <li><a href="#fabricante"><span class="lang-es">Configuración en el fabricante (paso a paso)</span><span class="lang-en">Vendor-side setup (step by step)</span></a></li>
-      <li><a href="#permisos"><span class="lang-es">Permisos requeridos</span><span class="lang-en">Required permissions</span></a></li>
-      <li><a href="#ruvic"><span class="lang-es">Configuración en Ruvic</span><span class="lang-en">Setup in Ruvic</span></a></li>
-      <li><a href="#verificacion"><span class="lang-es">Verificación</span><span class="lang-en">Verification</span></a></li>
-      <li><a href="#problemas"><span class="lang-es">Solución de problemas</span><span class="lang-en">Troubleshooting</span></a></li>
-      <li><a href="#faq"><span class="lang-es">Preguntas frecuentes y notas de seguridad</span><span class="lang-en">FAQ and security notes</span></a></li>
-    </ol>
-  </nav>
-
-  <!-- ============ 1. QUÉ ES ============ -->
-  <section id="que-es">
-    <h2><span class="lang-es">1. ¿Qué es y para qué sirve?</span><span class="lang-en">1. What is it and what is it for?</span></h2>
-
-    <div class="lang-es">
-      <p>El conector Gmail (IMAP/SMTP) permite que el agente de Ruvic lea, busque y envíe correos desde tu buzón de Gmail, usando el método más simple posible: tu correo y una <strong>Contraseña de aplicación</strong> que tú mismo generas en tu cuenta de Google. No necesitas pedirle nada a un administrador de sistemas ni crear nada en Google Cloud. Una vez configurado, puedes pedirle al agente cosas como:</p>
+      <p data-i18n="que_es.intro">El conector Gmail (IMAP/SMTP) permite que el agente de Ruvic lea, busque y envíe correos desde tu buzón de Gmail, usando el método más simple posible: tu correo y una <strong>Contraseña de aplicación</strong> que tú mismo generas en tu cuenta de Google. No necesitas pedirle nada a un administrador de sistemas ni crear nada en Google Cloud. Una vez configurado, puedes pedirle al agente cosas como:</p>
       <ul>
-        <li>“Revisa si llegaron correos nuevos de soporte y resúmelos.”</li>
-        <li>“Busca los correos de la última semana que mencionen ‘factura pendiente’.”</li>
-        <li>“Envía un correo al cliente confirmando que el ticket fue resuelto, con el reporte adjunto.”</li>
+        <li data-i18n="que_es.li1">"Revisa si llegaron correos nuevos de soporte y resúmelos."</li>
+        <li data-i18n="que_es.li2">"Busca los correos de la última semana que mencionen 'factura pendiente'."</li>
+        <li data-i18n="que_es.li3">"Envía un correo al cliente confirmando que el ticket fue resuelto, con el reporte adjunto."</li>
       </ul>
-      <p>Operaciones soportadas:</p>
-    </div>
-    <div class="lang-en">
-      <p>The Gmail (IMAP/SMTP) connector lets the Ruvic agent read, search and send email from your Gmail mailbox, using the simplest possible method: your email and an <strong>App Password</strong> that you generate yourself in your Google account. You don't need to ask a system administrator for anything or create anything in Google Cloud. Once configured, you can ask the agent things like:</p>
+      <p data-i18n="que_es.ops_lead">Operaciones soportadas:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.operacion">Operación</th>
+            <th data-i18n="table.que_hace">Qué hace</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>mail.list</code></td>
+            <td data-i18n="op.list">Busca/lista correos usando filtros (misma sintaxis de búsqueda que la web de Gmail)</td>
+          </tr>
+          <tr>
+            <td><code>mail.read</code></td>
+            <td data-i18n="op.read">Lee el detalle y el cuerpo de un correo</td>
+          </tr>
+          <tr>
+            <td><code>mail.send</code></td>
+            <td data-i18n="op.send">Envía un correo de texto</td>
+          </tr>
+          <tr>
+            <td><code>mail.send_with_attachment</code></td>
+            <td data-i18n="op.send_attach">Envía un correo con un archivo adjunto (máx. 20 MB)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-info">
+        <span class="callout-title" data-i18n="callout.autoservicio.title">Configuración 100% autoservicio</span>
+        <span data-i18n="callout.autoservicio.body">A diferencia de otros métodos de conexión a Gmail, este <strong>no requiere crear nada en Google Cloud Console ni pasar por una pantalla de autorización OAuth</strong>. Solo necesitas tu correo y una clave de 16 caracteres que Google te genera en segundos.</span>
+      </div>
+    </section>
+
+    <!-- ============ 2. PRERREQUISITOS ============ -->
+    <section>
+      <h2 id="prerrequisitos" data-i18n="section.prerrequisitos">Prerrequisitos</h2>
+
       <ul>
-        <li>“Check if new support emails arrived and summarize them.”</li>
-        <li>“Search last week's emails mentioning ‘pending invoice’.”</li>
-        <li>“Email the client confirming the ticket was resolved, with the report attached.”</li>
+        <li data-i18n="prereq.li1">Una cuenta de <strong>Gmail</strong> (personal @gmail.com o de Google Workspace).</li>
+        <li data-i18n="prereq.li2">Tener la <strong>verificación en 2 pasos (2FA) activada</strong> en esa cuenta — es obligatoria para poder generar una Contraseña de aplicación. Si no la tienes, actívala en <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a> antes de continuar.</li>
+        <li data-i18n="prereq.li3">Ningún permiso especial de administrador ni acceso a Google Cloud Console.</li>
       </ul>
-      <p>Supported operations:</p>
-    </div>
+    </section>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Operación</span><span class="lang-en">Operation</span></th>
-          <th><span class="lang-es">Qué hace</span><span class="lang-en">What it does</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>mail.list</code></td>
-          <td><span class="lang-es">Busca/lista correos usando filtros (misma sintaxis de búsqueda que la web de Gmail)</span><span class="lang-en">Searches/lists emails using filters (same search syntax as Gmail's web interface)</span></td>
-        </tr>
-        <tr>
-          <td><code>mail.read</code></td>
-          <td><span class="lang-es">Lee el detalle y el cuerpo de un correo</span><span class="lang-en">Reads the detail and body of an email</span></td>
-        </tr>
-        <tr>
-          <td><code>mail.send</code></td>
-          <td><span class="lang-es">Envía un correo de texto</span><span class="lang-en">Sends a text email</span></td>
-        </tr>
-        <tr>
-          <td><code>mail.send_with_attachment</code></td>
-          <td><span class="lang-es">Envía un correo con un archivo adjunto (máx. 20 MB)</span><span class="lang-en">Sends an email with a file attachment (max 20 MB)</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- ============ 3. CONFIGURACIÓN EN EL FABRICANTE ============ -->
+    <section>
+      <h2 id="configuracion-fabricante" data-i18n="section.configuracion_fabricante">Configuración en el fabricante</h2>
 
-    <div class="callout callout-info">
-      <span class="callout-title"><span class="lang-es">Configuración 100% autoservicio</span><span class="lang-en">100% self-service setup</span></span>
-      <span class="lang-es">A diferencia de otros métodos de conexión a Gmail, este <strong>no requiere crear nada en Google Cloud Console ni pasar por una pantalla de autorización OAuth</strong>. Solo necesitas tu correo y una clave de 16 caracteres que Google te genera en segundos.</span>
-      <span class="lang-en">Unlike other Gmail connection methods, this one <strong>requires no Google Cloud Console setup and no OAuth authorization screen</strong>. You just need your email and a 16-character key that Google generates in seconds.</span>
-    </div>
-  </section>
+      <p data-i18n="fab.intro">Vas a generar una <strong>Contraseña de aplicación</strong> en tu cuenta de Google. Es un proceso de menos de 2 minutos, sin instalar nada ni pedir aprobación a nadie.</p>
 
-  <!-- ============ 2. PRERREQUISITOS ============ -->
-  <section id="prerrequisitos">
-    <h2><span class="lang-es">2. Prerrequisitos</span><span class="lang-en">2. Prerequisites</span></h2>
+      <ol class="ruvic-steps">
+        <li>
+          <strong data-i18n="step1.title">Verifica que tengas la verificación en 2 pasos activada.</strong>
+          <p data-i18n="step1.body">Ve a <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a>. Si "Verificación en 2 pasos" aparece como "Desactivada", actívala primero (con tu celular, una llave de seguridad o la app Google Authenticator) — es un requisito de Google, no de Ruvic.</p>
+        </li>
 
-    <div class="lang-es">
-      <ul>
-        <li>Una cuenta de <strong>Gmail</strong> (personal @gmail.com o de Google Workspace).</li>
-        <li>Tener la <strong>verificación en 2 pasos (2FA) activada</strong> en esa cuenta — es obligatoria para poder generar una Contraseña de aplicación. Si no la tienes, actívala en <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a> antes de continuar.</li>
-        <li>Ningún permiso especial de administrador ni acceso a Google Cloud Console.</li>
-      </ul>
-    </div>
-    <div class="lang-en">
-      <ul>
-        <li>A <strong>Gmail</strong> account (personal @gmail.com or Google Workspace).</li>
-        <li><strong>2-Step Verification (2FA) enabled</strong> on that account — required to generate an App Password. If you don't have it, enable it at <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a> before continuing.</li>
-        <li>No special admin permissions or Google Cloud Console access needed.</li>
-      </ul>
-    </div>
-  </section>
+        <li>
+          <strong data-i18n="step2.title">Abre el generador de Contraseñas de aplicación.</strong>
+          <p data-i18n="step2.body">Ve directamente a <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> (te pedirá volver a iniciar sesión por seguridad).</p>
+        </li>
 
-  <!-- ============ 3. CONFIGURACIÓN EN EL FABRICANTE ============ -->
-  <section id="fabricante">
-    <h2><span class="lang-es">3. Configuración en el fabricante (paso a paso)</span><span class="lang-en">3. Vendor-side setup (step by step)</span></h2>
+        <li>
+          <strong data-i18n="step3.title">Crea la contraseña.</strong>
+          <p data-i18n="step3.body">Escribe un nombre que reconozcas (ej. "Ruvic") en el campo de texto y pulsa <em>Crear</em>.</p>
+          <div class="screenshot-placeholder" data-i18n="ph.create">
+            [ Captura: pantalla "Contraseñas de aplicaciones" con el campo de nombre y el botón Crear — reemplazar por assets/img/apppassword-create.png ]
+          </div>
+        </li>
 
-    <div class="lang-es">
-      <p>Vas a generar una <strong>Contraseña de aplicación</strong> en tu cuenta de Google. Es un proceso de menos de 2 minutos, sin instalar nada ni pedir aprobación a nadie.</p>
-    </div>
-    <div class="lang-en">
-      <p>You will generate an <strong>App Password</strong> in your Google account. This takes under 2 minutes, with nothing to install and no approval needed from anyone.</p>
-    </div>
+        <li>
+          <strong data-i18n="step4.title">Copia la clave generada.</strong>
+          <p data-i18n="step4.body">Google muestra una clave de 16 caracteres en grupos de 4 (ej. <code>abcd efgh ijkl mnop</code>). Cópiala tal cual — con o sin espacios funciona igual. <strong>Esta es la única vez que Google la muestra</strong>, guárdala antes de cerrar la ventana.</p>
+        </li>
+      </ol>
+    </section>
 
-    <ol class="ruvic-steps">
-      <li>
-        <div class="lang-es">
-          <strong>Verifica que tengas la verificación en 2 pasos activada.</strong>
-          <p>Ve a <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a>. Si "Verificación en 2 pasos" aparece como "Desactivada", actívala primero (con tu celular, una llave de seguridad o la app Google Authenticator) — es un requisito de Google, no de Ruvic.</p>
-        </div>
-        <div class="lang-en">
-          <strong>Verify that 2-Step Verification is enabled.</strong>
-          <p>Go to <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a>. If "2-Step Verification" shows as "Off", enable it first (with your phone, a security key, or the Google Authenticator app) — this is a Google requirement, not a Ruvic one.</p>
-        </div>
-      </li>
+    <!-- ============ 4. PERMISOS ============ -->
+    <section>
+      <h2 id="permisos" data-i18n="section.permisos">Permisos requeridos</h2>
 
-      <li>
-        <div class="lang-es">
-          <strong>Abre el generador de Contraseñas de aplicación.</strong>
-          <p>Ve directamente a <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> (te pedirá volver a iniciar sesión por seguridad).</p>
-        </div>
-        <div class="lang-en">
-          <strong>Open the App Passwords generator.</strong>
-          <p>Go directly to <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> (it will ask you to sign in again for security).</p>
-        </div>
-      </li>
+      <p data-i18n="permisos.intro">Una Contraseña de aplicación otorga acceso completo de correo (equivalente a iniciar sesión en la cuenta vía IMAP/SMTP) — no existe forma de limitarla a "solo lectura" o a operaciones específicas, a diferencia de los scopes de OAuth2. El conector en sí solo usa esa clave para leer y enviar correos (nunca borra, nunca cambia configuración), pero la clave por sí sola no lo impone técnicamente.</p>
 
-      <li>
-        <div class="lang-es">
-          <strong>Crea la contraseña.</strong>
-          <p>Escribe un nombre que reconozcas (ej. "Ruvic") en el campo de texto y pulsa <em>Crear</em>.</p>
-        </div>
-        <div class="lang-en">
-          <strong>Create the password.</strong>
-          <p>Type a recognizable name (e.g. "Ruvic") in the text field and click <em>Create</em>.</p>
-        </div>
-        <div class="screenshot-placeholder">
-          <span class="lang-es">[ Captura: pantalla "Contraseñas de aplicaciones" con el campo de nombre y el botón Crear — reemplazar por assets/img/apppassword-create.png ]</span>
-          <span class="lang-en">[ Screenshot: "App passwords" screen with the name field and Create button — replace with assets/img/apppassword-create.png ]</span>
-        </div>
-      </li>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.acceso">Acceso</th>
+            <th data-i18n="table.scope_uso">Para qué lo usa el conector</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>IMAP</td>
+            <td data-i18n="acceso.imap">Buscar y leer correos (<code>mail.list</code>, <code>mail.read</code>)</td>
+          </tr>
+          <tr>
+            <td>SMTP</td>
+            <td data-i18n="acceso.smtp">Enviar correos (<code>mail.send</code>, <code>mail.send_with_attachment</code>)</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <li>
-        <div class="lang-es">
-          <strong>Copia la clave generada.</strong>
-          <p>Google muestra una clave de 16 caracteres en grupos de 4 (ej. <code>abcd efgh ijkl mnop</code>). Cópiala tal cual — con o sin espacios funciona igual. <strong>Esta es la única vez que Google la muestra</strong>, guárdala antes de cerrar la ventana.</p>
-        </div>
-        <div class="lang-en">
-          <strong>Copy the generated key.</strong>
-          <p>Google shows a 16-character key in groups of 4 (e.g. <code>abcd efgh ijkl mnop</code>). Copy it as-is — with or without spaces works the same. <strong>This is the only time Google shows it</strong>, save it before closing the window.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
+      <div class="callout callout-info">
+        <span class="callout-title" data-i18n="callout.restringido.title">¿Necesitas acceso realmente restringido?</span>
+        <span data-i18n="callout.restringido.body">Si tu organización requiere que el agente solo pueda <em>leer</em> correo (nunca enviar), o quieres scopes granulares tipo OAuth, usa en su lugar el <strong>conector Gmail (OAuth2)</strong>, que sí soporta permisos separados por operación.</span>
+      </div>
+    </section>
 
-  <!-- ============ 4. PERMISOS ============ -->
-  <section id="permisos">
-    <h2><span class="lang-es">4. Permisos requeridos</span><span class="lang-en">4. Required permissions</span></h2>
+    <!-- ============ 5. CONFIGURACIÓN EN RUVIC ============ -->
+    <section>
+      <h2 id="configuracion-ruvic" data-i18n="section.configuracion_ruvic">Configuración en Ruvic</h2>
 
-    <div class="lang-es">
-      <p>Una Contraseña de aplicación otorga acceso completo de correo (equivalente a iniciar sesión en la cuenta vía IMAP/SMTP) — no existe forma de limitarla a "solo lectura" o a operaciones específicas, a diferencia de los scopes de OAuth2. El conector en sí solo usa esa clave para leer y enviar correos (nunca borra, nunca cambia configuración), pero la clave por sí sola no lo impone técnicamente.</p>
-    </div>
-    <div class="lang-en">
-      <p>An App Password grants full mail access (equivalent to signing into the account via IMAP/SMTP) — there is no way to limit it to "read-only" or to specific operations, unlike OAuth2 scopes. The connector itself only uses that key to read and send email (it never deletes, never changes settings), but the key alone doesn't technically enforce that.</p>
-    </div>
+      <p data-i18n="ruvic.intro">Entra a <strong>Settings → Conectores</strong>, busca la tarjeta <strong>Gmail (IMAP/SMTP)</strong> y pulsa <strong>Configurar</strong>. Diligencia el formulario con los valores que obtuviste en la sección anterior:</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Acceso</span><span class="lang-en">Access</span></th>
-          <th><span class="lang-es">Para qué lo usa el conector</span><span class="lang-en">Why the connector needs it</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>IMAP</td>
-          <td><span class="lang-es">Buscar y leer correos (<code>mail.list</code>, <code>mail.read</code>)</span><span class="lang-en">Search and read emails (<code>mail.list</code>, <code>mail.read</code>)</span></td>
-        </tr>
-        <tr>
-          <td>SMTP</td>
-          <td><span class="lang-es">Enviar correos (<code>mail.send</code>, <code>mail.send_with_attachment</code>)</span><span class="lang-en">Send emails (<code>mail.send</code>, <code>mail.send_with_attachment</code>)</span></td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.campo">Campo del formulario</th>
+            <th data-i18n="table.valor">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="field.email.label">Correo de Gmail</td>
+            <td data-i18n="field.email.value">Tu dirección completa de Gmail (ej. <code>soporte@tuempresa.com</code>)</td>
+          </tr>
+          <tr>
+            <td data-i18n="field.pass.label">Contraseña de aplicación</td>
+            <td data-i18n="field.pass.value">La clave de 16 caracteres del paso 4 de la sección anterior</td>
+          </tr>
+          <tr>
+            <td data-i18n="field.timeout.label">Timeout de solicitud</td>
+            <td data-i18n="field.timeout.value">Opcional; <code>30</code> segundos por defecto</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <div class="callout callout-info">
-      <span class="callout-title"><span class="lang-es">¿Necesitas acceso realmente restringido?</span><span class="lang-en">Need genuinely restricted access?</span></span>
-      <span class="lang-es">Si tu organización requiere que el agente solo pueda <em>leer</em> correo (nunca enviar), o quieres scopes granulares tipo OAuth, usa en su lugar el <strong>conector Gmail (OAuth2)</strong>, que sí soporta permisos separados por operación.</span>
-      <span class="lang-en">If your organization requires the agent to only <em>read</em> mail (never send), or you want granular OAuth-style scopes, use the <strong>Gmail (OAuth2) connector</strong> instead, which does support per-operation permissions.</span>
-    </div>
-  </section>
+      <p data-i18n="ruvic.probar">Guarda y pulsa <span class="ruvic-button">Probar conexión</span> — la plataforma iniciará sesión IMAP con esas credenciales y confirmará que funcionan. No hay ningún paso adicional ni redirección a Google.</p>
 
-  <!-- ============ 5. CONFIGURACIÓN EN RUVIC ============ -->
-  <section id="ruvic">
-    <h2><span class="lang-es">5. Configuración en Ruvic</span><span class="lang-en">5. Setup in Ruvic</span></h2>
+      <div class="screenshot-placeholder" data-i18n="ph.form">
+        [ Captura: formulario del conector Gmail (IMAP/SMTP) en Settings → Conectores — reemplazar por assets/img/imap-form.png ]
+      </div>
+    </section>
 
-    <div class="lang-es">
-      <p>Entra a <strong>Settings → Conectores</strong>, busca la tarjeta <strong>Gmail (IMAP/SMTP)</strong> y pulsa <strong>Configurar</strong>. Diligencia el formulario con los valores que obtuviste en la sección 3:</p>
-    </div>
-    <div class="lang-en">
-      <p>Go to <strong>Settings → Connectors</strong>, find the <strong>Gmail (IMAP/SMTP)</strong> card and click <strong>Configure</strong>. Fill in the form with the values from section 3:</p>
-    </div>
+    <!-- ============ 6. VERIFICACIÓN ============ -->
+    <section>
+      <h2 id="verificacion" data-i18n="section.verificacion">Verificación</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Campo del formulario</span><span class="lang-en">Form field</span></th>
-          <th><span class="lang-es">Valor</span><span class="lang-en">Value</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="lang-es">Correo de Gmail</span><span class="lang-en">Gmail email</span></td>
-          <td><span class="lang-es">Tu dirección completa de Gmail (ej. <code>soporte@tuempresa.com</code>)</span><span class="lang-en">Your full Gmail address (e.g. <code>soporte@tuempresa.com</code>)</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">Contraseña de aplicación</span><span class="lang-en">App Password</span></td>
-          <td><span class="lang-es">La clave de 16 caracteres del paso 4 de la sección 3</span><span class="lang-en">The 16-character key from step 4 of section 3</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">Timeout de solicitud</span><span class="lang-en">Request timeout</span></td>
-          <td><span class="lang-es">Opcional; <code>30</code> segundos por defecto</span><span class="lang-en">Optional; defaults to <code>30</code> seconds</span></td>
-        </tr>
-      </tbody>
-    </table>
+      <ol class="ruvic-steps">
+        <li>
+          <strong data-i18n="verif1.title">Test de conexión exitoso.</strong>
+          <p data-i18n="verif1.body">El botón <em>Probar conexión</em> debe responder: <em>"Conexión exitosa al buzón soporte@tuempresa.com"</em>. La tarjeta del conector cambia a estado <strong>Configurado</strong>.</p>
+        </li>
+        <li>
+          <strong data-i18n="verif2.title">Automatización mínima de prueba.</strong>
+          <p data-i18n="verif2.body">Abre una conversación nueva con el agente y pídele:</p>
+          <blockquote data-i18n="verif2.quote"><em>"Busca en Gmail los correos no leídos de los últimos 3 días y resúmelos."</em></blockquote>
+          <p data-i18n="verif2.after">El agente debe responder con correos reales del buzón configurado. Si lo hace, el conector quedó operativo de punta a punta.</p>
+        </li>
+      </ol>
+    </section>
 
-    <div class="lang-es"><p>Guarda y pulsa <span class="ruvic-button">Probar conexión</span> — la plataforma iniciará sesión IMAP con esas credenciales y confirmará que funcionan. No hay ningún paso adicional ni redirección a Google.</p></div>
-    <div class="lang-en"><p>Save and click <span class="ruvic-button">Test connection</span> — the platform will log in via IMAP with those credentials and confirm they work. No additional steps, no redirect to Google.</p></div>
+    <!-- ============ 7. SOLUCIÓN DE PROBLEMAS ============ -->
+    <section>
+      <h2 id="solucion-problemas" data-i18n="section.solucion_problemas">Solución de problemas</h2>
 
-    <div class="screenshot-placeholder">
-      <span class="lang-es">[ Captura: formulario del conector Gmail (IMAP/SMTP) en Settings → Conectores — reemplazar por assets/img/imap-form.png ]</span>
-      <span class="lang-en">[ Screenshot: Gmail (IMAP/SMTP) connector form in Settings → Connectors — replace with assets/img/imap-form.png ]</span>
-    </div>
-  </section>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.sintoma">Mensaje / síntoma</th>
+            <th data-i18n="table.causa">Causa probable y solución</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="prob1.s">"Autenticación fallida: verifica que el email sea correcto y que la contraseña sea una Contraseña de aplicación válida"</td>
+            <td data-i18n="prob1.f">La causa más común: se pegó la contraseña normal de la cuenta en vez de la Contraseña de aplicación. Google las rechaza siempre para IMAP/SMTP desde 2022. Genera una Contraseña de aplicación nueva (sección anterior) y pégala completa.</td>
+          </tr>
+          <tr>
+            <td data-i18n="prob2.s">No aparece la opción "Contraseñas de aplicaciones" en Google</td>
+            <td data-i18n="prob2.f">Falta activar la verificación en 2 pasos (paso 1 de la sección anterior). Google oculta el generador de Contraseñas de aplicación hasta que 2FA esté activo.</td>
+          </tr>
+          <tr>
+            <td data-i18n="prob3.s">"No se pudo conectar a imap.gmail.com:993 … (timeout)"</td>
+            <td data-i18n="prob3.f">La plataforma Ruvic no tiene salida de red hacia Gmail (firewall corporativo, proxy restrictivo). Revisa que el puerto 993 (IMAP) y 465 (SMTP) salientes estén permitidos.</td>
+          </tr>
+          <tr>
+            <td data-i18n="prob4.s">El conector aparece "Sin configurar" tras guardar</td>
+            <td data-i18n="prob4.f">Algún campo obligatorio quedó vacío. Ábrelo de nuevo y completa el correo y la Contraseña de aplicación.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-  <!-- ============ 6. VERIFICACIÓN ============ -->
-  <section id="verificacion">
-    <h2><span class="lang-es">6. Verificación</span><span class="lang-en">6. Verification</span></h2>
+    <!-- ============ 8. FAQ Y SEGURIDAD ============ -->
+    <section>
+      <h2 id="faq-seguridad" data-i18n="section.faq_seguridad">Preguntas frecuentes y notas de seguridad</h2>
 
-    <ol class="ruvic-steps">
-      <li>
-        <div class="lang-es"><strong>Test de conexión exitoso.</strong><p>El botón <em>Probar conexión</em> debe responder: <em>“Conexión exitosa al buzón soporte@tuempresa.com”</em>. La tarjeta del conector cambia a estado <strong>Configurado</strong>.</p></div>
-        <div class="lang-en"><strong>Successful connection test.</strong><p>The <em>Test connection</em> button should return: <em>“Successful connection to mailbox soporte@tuempresa.com”</em>. The connector card switches to <strong>Configured</strong>.</p></div>
-      </li>
-      <li>
-        <div class="lang-es"><strong>Automatización mínima de prueba.</strong><p>Abre una conversación nueva con el agente y pídele:</p><blockquote><em>“Busca en Gmail los correos no leídos de los últimos 3 días y resúmelos.”</em></blockquote><p>El agente debe responder con correos reales del buzón configurado. Si lo hace, el conector quedó operativo de punta a punta.</p></div>
-        <div class="lang-en"><strong>Minimal test automation.</strong><p>Open a new conversation with the agent and ask:</p><blockquote><em>“Search Gmail for unread emails from the last 3 days and summarize them.”</em></blockquote><p>The agent should reply with real emails from the configured mailbox. If it does, the connector is fully operational.</p></div>
-      </li>
-    </ol>
-  </section>
+      <h3 data-i18n="faq1.q">¿Es lo mismo que usar mi contraseña normal?</h3>
+      <p data-i18n="faq1.a">No. Una Contraseña de aplicación es una clave separada, generada solo para este propósito. Google la puede revocar individualmente sin afectar tu contraseña principal ni cerrar tu sesión en otros dispositivos.</p>
 
-  <!-- ============ 7. SOLUCIÓN DE PROBLEMAS ============ -->
-  <section id="problemas">
-    <h2><span class="lang-es">7. Solución de problemas</span><span class="lang-en">7. Troubleshooting</span></h2>
+      <h3 data-i18n="faq2.q">¿El agente puede borrar correos o cambiar configuración del buzón?</h3>
+      <p data-i18n="faq2.a">El conector, tal como está construido, solo implementa leer y enviar (nunca borra ni cambia configuración). Pero a diferencia del conector OAuth2, la Contraseña de aplicación en sí <strong>sí tiene</strong> permisos técnicos para hacer más que eso — la restricción es de diseño del conector, no del token. Si necesitas esa garantía a nivel de credencial, usa el conector OAuth2.</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Mensaje / síntoma</span><span class="lang-en">Message / symptom</span></th>
-          <th><span class="lang-es">Causa probable y solución</span><span class="lang-en">Likely cause and fix</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="lang-es">“Autenticación fallida: verifica que el email sea correcto y que la contraseña sea una Contraseña de aplicación válida”</span><span class="lang-en">“Authentication failed: verify the email is correct and the password is a valid App Password”</span></td>
-          <td><span class="lang-es">La causa más común: se pegó la contraseña normal de la cuenta en vez de la Contraseña de aplicación. Google las rechaza siempre para IMAP/SMTP desde 2022. Genera una Contraseña de aplicación nueva (sección 3) y pégala completa.</span><span class="lang-en">Most common cause: the account's regular password was pasted instead of an App Password. Google always rejects those for IMAP/SMTP since 2022. Generate a new App Password (section 3) and paste it in full.</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">No aparece la opción "Contraseñas de aplicaciones" en Google</span><span class="lang-en">The "App passwords" option doesn't appear in Google</span></td>
-          <td><span class="lang-es">Falta activar la verificación en 2 pasos (paso 1 de la sección 3). Google oculta el generador de Contraseñas de aplicación hasta que 2FA esté activo.</span><span class="lang-en">2-Step Verification isn't enabled (step 1 of section 3). Google hides the App Password generator until 2FA is active.</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">“No se pudo conectar a imap.gmail.com:993 … (timeout)”</span><span class="lang-en">“Could not connect to imap.gmail.com:993 … (timeout)”</span></td>
-          <td><span class="lang-es">La plataforma Ruvic no tiene salida de red hacia Gmail (firewall corporativo, proxy restrictivo). Revisa que el puerto 993 (IMAP) y 465 (SMTP) salientes estén permitidos.</span><span class="lang-en">The Ruvic platform has no network egress to Gmail (corporate firewall, restrictive proxy). Check that outbound ports 993 (IMAP) and 465 (SMTP) are allowed.</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">El conector aparece “Sin configurar” tras guardar</span><span class="lang-en">Connector shows “Not configured” after saving</span></td>
-          <td><span class="lang-es">Algún campo obligatorio quedó vacío. Ábrelo de nuevo y completa el correo y la Contraseña de aplicación.</span><span class="lang-en">A required field was left empty. Open it again and fill in the email and App Password.</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+      <h3 data-i18n="faq3.q">¿Dónde queda guardada la Contraseña de aplicación?</h3>
+      <p data-i18n="faq3.a">Como secreto en el almacén de credenciales de la plataforma, asociado a tu usuario. La interfaz nunca vuelve a mostrarla; solo indica "definida". Para cambiarla, pega una nueva en el formulario; para conservarla al editar otros campos, deja el campo vacío.</p>
 
-  <!-- ============ 8. FAQ Y SEGURIDAD ============ -->
-  <section id="faq">
-    <h2><span class="lang-es">8. Preguntas frecuentes y notas de seguridad</span><span class="lang-en">8. FAQ and security notes</span></h2>
+      <h3 data-i18n="faq4.q">¿Expira la Contraseña de aplicación?</h3>
+      <p data-i18n="faq4.a">No, permanece activa indefinidamente hasta que la revoques manualmente o desactives la verificación en 2 pasos (lo cual revoca todas las Contraseñas de aplicación automáticamente).</p>
 
-    <h3><span class="lang-es">¿Es lo mismo que usar mi contraseña normal?</span><span class="lang-en">Is this the same as using my regular password?</span></h3>
-    <div class="lang-es"><p>No. Una Contraseña de aplicación es una clave separada, generada solo para este propósito. Google la puede revocar individualmente sin afectar tu contraseña principal ni cerrar tu sesión en otros dispositivos.</p></div>
-    <div class="lang-en"><p>No. An App Password is a separate key, generated only for this purpose. Google can revoke it individually without affecting your main password or signing you out of other devices.</p></div>
+      <h3 data-i18n="faq5.q">¿Qué hago si la Contraseña de aplicación se compromete?</h3>
+      <ol data-i18n="faq5.a">
+        <li>Ve a <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> y elimina la clave comprometida (un clic, efecto inmediato).</li>
+        <li>Genera una nueva.</li>
+        <li>Actualízala en el formulario del conector.</li>
+      </ol>
 
-    <h3><span class="lang-es">¿El agente puede borrar correos o cambiar configuración del buzón?</span><span class="lang-en">Can the agent delete emails or change mailbox settings?</span></h3>
-    <div class="lang-es"><p>El conector, tal como está construido, solo implementa leer y enviar (nunca borra ni cambia configuración). Pero a diferencia del conector OAuth2, la Contraseña de aplicación en sí <strong>sí tiene</strong> permisos técnicos para hacer más que eso — la restricción es de diseño del conector, no del token. Si necesitas esa garantía a nivel de credencial, usa el conector OAuth2.</p></div>
-    <div class="lang-en"><p>The connector, as built, only implements read and send (it never deletes or changes settings). But unlike the OAuth2 connector, the App Password itself <strong>does technically have</strong> permission to do more than that — the restriction is a connector design choice, not enforced by the token. If you need that guarantee at the credential level, use the OAuth2 connector.</p></div>
+      <div class="callout callout-warning">
+        <span class="callout-title" data-i18n="callout.practicas.title">Buenas prácticas</span>
+        <span data-i18n="callout.practicas.body">Genera una Contraseña de aplicación dedicada solo a Ruvic (no reutilices una que ya uses en otra app); nunca la compartas por canales no seguros; y revisa periódicamente en <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> qué contraseñas de aplicación tienes activas.</span>
+      </div>
+    </section>
 
-    <h3><span class="lang-es">¿Dónde queda guardada la Contraseña de aplicación?</span><span class="lang-en">Where is the App Password stored?</span></h3>
-    <div class="lang-es"><p>Como secreto en el almacén de credenciales de la plataforma, asociado a tu usuario. La interfaz nunca vuelve a mostrarla; solo indica “definida”. Para cambiarla, pega una nueva en el formulario; para conservarla al editar otros campos, deja el campo vacío.</p></div>
-    <div class="lang-en"><p>As a secret in the platform's credential store, tied to your user. The UI never displays it again; it only shows “set”. To change it, paste a new one into the form; to keep it while editing other fields, leave the field empty.</p></div>
-
-    <h3><span class="lang-es">¿Expira la Contraseña de aplicación?</span><span class="lang-en">Does the App Password expire?</span></h3>
-    <div class="lang-es"><p>No, permanece activa indefinidamente hasta que la revoques manualmente o desactives la verificación en 2 pasos (lo cual revoca todas las Contraseñas de aplicación automáticamente).</p></div>
-    <div class="lang-en"><p>No, it stays active indefinitely until you manually revoke it or disable 2-Step Verification (which automatically revokes all App Passwords).</p></div>
-
-    <h3><span class="lang-es">¿Qué hago si la Contraseña de aplicación se compromete?</span><span class="lang-en">What if the App Password is compromised?</span></h3>
-    <div class="lang-es"><ol><li>Ve a <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> y elimina la clave comprometida (un clic, efecto inmediato).</li><li>Genera una nueva.</li><li>Actualízala en el formulario del conector.</li></ol></div>
-    <div class="lang-en"><ol><li>Go to <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> and delete the compromised key (one click, immediate effect).</li><li>Generate a new one.</li><li>Update it in the connector form.</li></ol></div>
-
-    <div class="callout callout-warning">
-      <span class="callout-title"><span class="lang-es">Buenas prácticas</span><span class="lang-en">Best practices</span></span>
-      <span class="lang-es">Genera una Contraseña de aplicación dedicada solo a Ruvic (no reutilices una que ya uses en otra app); nunca la compartas por canales no seguros; y revisa periódicamente en <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> qué contraseñas de aplicación tienes activas.</span>
-      <span class="lang-en">Generate an App Password dedicated only to Ruvic (don't reuse one you already use for another app); never share it over insecure channels; and periodically review at <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> which app passwords you have active.</span>
-    </div>
-  </section>
-
-</main>
-
-<footer class="ruvic-footer">
-  <div class="tagline">Opera, factura, escala — aunque tu equipo no esté</div>
-  <div>Ruvic Engine · @ruvic_ai</div>
-</footer>
-
-<script>
-  // Toggle de idioma ES/EN — parte de la plantilla, no modificar.
-  (function () {
-    var buttons = document.querySelectorAll("[data-set-lang]");
-    function setLang(lang) {
-      document.documentElement.setAttribute("data-lang", lang);
-      document.documentElement.setAttribute("lang", lang);
-      buttons.forEach(function (btn) {
-        btn.classList.toggle("active", btn.getAttribute("data-set-lang") === lang);
-      });
-      try { localStorage.setItem("ruvic-docs-lang", lang); } catch (e) {}
-    }
-    buttons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        setLang(btn.getAttribute("data-set-lang"));
-      });
-    });
-    try {
-      var saved = localStorage.getItem("ruvic-docs-lang");
-      if (saved === "en" || saved === "es") setLang(saved);
-    } catch (e) {}
-  })();
-</script>
-
+  </main>
+  <script>
+    const I18N = {
+  "es": {
+    "doc_title": "Conector Gmail (IMAP/SMTP) — Ruvic",
+    "toc_title": "Contenido",
+    "toc.que_es": "¿Qué es y para qué sirve?",
+    "toc.prerrequisitos": "Prerrequisitos",
+    "toc.configuracion_fabricante": "Configuración en el fabricante",
+    "toc.permisos": "Permisos requeridos",
+    "toc.configuracion_ruvic": "Configuración en Ruvic",
+    "toc.verificacion": "Verificación",
+    "toc.solucion_problemas": "Solución de problemas",
+    "toc.faq_seguridad": "Preguntas frecuentes y notas de seguridad",
+    "guide_title": "Gmail (IMAP/SMTP)",
+    "section.que_es": "¿Qué es y para qué sirve?",
+    "que_es.intro": "El conector Gmail (IMAP/SMTP) permite que el agente de Ruvic lea, busque y envíe correos desde tu buzón de Gmail, usando el método más simple posible: tu correo y una <strong>Contraseña de aplicación</strong> que tú mismo generas en tu cuenta de Google. No necesitas pedirle nada a un administrador de sistemas ni crear nada en Google Cloud. Una vez configurado, puedes pedirle al agente cosas como:",
+    "que_es.li1": "\"Revisa si llegaron correos nuevos de soporte y resúmelos.\"",
+    "que_es.li2": "\"Busca los correos de la última semana que mencionen 'factura pendiente'.\"",
+    "que_es.li3": "\"Envía un correo al cliente confirmando que el ticket fue resuelto, con el reporte adjunto.\"",
+    "que_es.ops_lead": "Operaciones soportadas:",
+    "table.operacion": "Operación",
+    "table.que_hace": "Qué hace",
+    "op.list": "Busca/lista correos usando filtros (misma sintaxis de búsqueda que la web de Gmail)",
+    "op.read": "Lee el detalle y el cuerpo de un correo",
+    "op.send": "Envía un correo de texto",
+    "op.send_attach": "Envía un correo con un archivo adjunto (máx. 20 MB)",
+    "callout.autoservicio.title": "Configuración 100% autoservicio",
+    "callout.autoservicio.body": "A diferencia de otros métodos de conexión a Gmail, este <strong>no requiere crear nada en Google Cloud Console ni pasar por una pantalla de autorización OAuth</strong>. Solo necesitas tu correo y una clave de 16 caracteres que Google te genera en segundos.",
+    "section.prerrequisitos": "Prerrequisitos",
+    "prereq.li1": "Una cuenta de <strong>Gmail</strong> (personal @gmail.com o de Google Workspace).",
+    "prereq.li2": "Tener la <strong>verificación en 2 pasos (2FA) activada</strong> en esa cuenta — es obligatoria para poder generar una Contraseña de aplicación. Si no la tienes, actívala en <a href=\"https://myaccount.google.com/security\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/security</a> antes de continuar.",
+    "prereq.li3": "Ningún permiso especial de administrador ni acceso a Google Cloud Console.",
+    "section.configuracion_fabricante": "Configuración en el fabricante",
+    "fab.intro": "Vas a generar una <strong>Contraseña de aplicación</strong> en tu cuenta de Google. Es un proceso de menos de 2 minutos, sin instalar nada ni pedir aprobación a nadie.",
+    "step1.title": "Verifica que tengas la verificación en 2 pasos activada.",
+    "step1.body": "Ve a <a href=\"https://myaccount.google.com/security\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/security</a>. Si \"Verificación en 2 pasos\" aparece como \"Desactivada\", actívala primero (con tu celular, una llave de seguridad o la app Google Authenticator) — es un requisito de Google, no de Ruvic.",
+    "step2.title": "Abre el generador de Contraseñas de aplicación.",
+    "step2.body": "Ve directamente a <a href=\"https://myaccount.google.com/apppasswords\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/apppasswords</a> (te pedirá volver a iniciar sesión por seguridad).",
+    "step3.title": "Crea la contraseña.",
+    "step3.body": "Escribe un nombre que reconozcas (ej. \"Ruvic\") en el campo de texto y pulsa <em>Crear</em>.",
+    "ph.create": "[ Captura: pantalla \"Contraseñas de aplicaciones\" con el campo de nombre y el botón Crear — reemplazar por assets/img/apppassword-create.png ]",
+    "step4.title": "Copia la clave generada.",
+    "step4.body": "Google muestra una clave de 16 caracteres en grupos de 4 (ej. <code>abcd efgh ijkl mnop</code>). Cópiala tal cual — con o sin espacios funciona igual. <strong>Esta es la única vez que Google la muestra</strong>, guárdala antes de cerrar la ventana.",
+    "section.permisos": "Permisos requeridos",
+    "permisos.intro": "Una Contraseña de aplicación otorga acceso completo de correo (equivalente a iniciar sesión en la cuenta vía IMAP/SMTP) — no existe forma de limitarla a \"solo lectura\" o a operaciones específicas, a diferencia de los scopes de OAuth2. El conector en sí solo usa esa clave para leer y enviar correos (nunca borra, nunca cambia configuración), pero la clave por sí sola no lo impone técnicamente.",
+    "table.acceso": "Acceso",
+    "table.scope_uso": "Para qué lo usa el conector",
+    "acceso.imap": "Buscar y leer correos (<code>mail.list</code>, <code>mail.read</code>)",
+    "acceso.smtp": "Enviar correos (<code>mail.send</code>, <code>mail.send_with_attachment</code>)",
+    "callout.restringido.title": "¿Necesitas acceso realmente restringido?",
+    "callout.restringido.body": "Si tu organización requiere que el agente solo pueda <em>leer</em> correo (nunca enviar), o quieres scopes granulares tipo OAuth, usa en su lugar el <strong>conector Gmail (OAuth2)</strong>, que sí soporta permisos separados por operación.",
+    "section.configuracion_ruvic": "Configuración en Ruvic",
+    "ruvic.intro": "Entra a <strong>Settings → Conectores</strong>, busca la tarjeta <strong>Gmail (IMAP/SMTP)</strong> y pulsa <strong>Configurar</strong>. Diligencia el formulario con los valores que obtuviste en la sección anterior:",
+    "table.campo": "Campo del formulario",
+    "table.valor": "Valor",
+    "field.email.label": "Correo de Gmail",
+    "field.email.value": "Tu dirección completa de Gmail (ej. <code>soporte@tuempresa.com</code>)",
+    "field.pass.label": "Contraseña de aplicación",
+    "field.pass.value": "La clave de 16 caracteres del paso 4 de la sección anterior",
+    "field.timeout.label": "Timeout de solicitud",
+    "field.timeout.value": "Opcional; <code>30</code> segundos por defecto",
+    "ruvic.probar": "Guarda y pulsa <span class=\"ruvic-button\">Probar conexión</span> — la plataforma iniciará sesión IMAP con esas credenciales y confirmará que funcionan. No hay ningún paso adicional ni redirección a Google.",
+    "ph.form": "[ Captura: formulario del conector Gmail (IMAP/SMTP) en Settings → Conectores — reemplazar por assets/img/imap-form.png ]",
+    "section.verificacion": "Verificación",
+    "verif1.title": "Test de conexión exitoso.",
+    "verif1.body": "El botón <em>Probar conexión</em> debe responder: <em>\"Conexión exitosa al buzón soporte@tuempresa.com\"</em>. La tarjeta del conector cambia a estado <strong>Configurado</strong>.",
+    "verif2.title": "Automatización mínima de prueba.",
+    "verif2.body": "Abre una conversación nueva con el agente y pídele:",
+    "verif2.quote": "<em>\"Busca en Gmail los correos no leídos de los últimos 3 días y resúmelos.\"</em>",
+    "verif2.after": "El agente debe responder con correos reales del buzón configurado. Si lo hace, el conector quedó operativo de punta a punta.",
+    "section.solucion_problemas": "Solución de problemas",
+    "table.sintoma": "Mensaje / síntoma",
+    "table.causa": "Causa probable y solución",
+    "prob1.s": "\"Autenticación fallida: verifica que el email sea correcto y que la contraseña sea una Contraseña de aplicación válida\"",
+    "prob1.f": "La causa más común: se pegó la contraseña normal de la cuenta en vez de la Contraseña de aplicación. Google las rechaza siempre para IMAP/SMTP desde 2022. Genera una Contraseña de aplicación nueva (sección anterior) y pégala completa.",
+    "prob2.s": "No aparece la opción \"Contraseñas de aplicaciones\" en Google",
+    "prob2.f": "Falta activar la verificación en 2 pasos (paso 1 de la sección anterior). Google oculta el generador de Contraseñas de aplicación hasta que 2FA esté activo.",
+    "prob3.s": "\"No se pudo conectar a imap.gmail.com:993 … (timeout)\"",
+    "prob3.f": "La plataforma Ruvic no tiene salida de red hacia Gmail (firewall corporativo, proxy restrictivo). Revisa que el puerto 993 (IMAP) y 465 (SMTP) salientes estén permitidos.",
+    "prob4.s": "El conector aparece \"Sin configurar\" tras guardar",
+    "prob4.f": "Algún campo obligatorio quedó vacío. Ábrelo de nuevo y completa el correo y la Contraseña de aplicación.",
+    "section.faq_seguridad": "Preguntas frecuentes y notas de seguridad",
+    "faq1.q": "¿Es lo mismo que usar mi contraseña normal?",
+    "faq1.a": "No. Una Contraseña de aplicación es una clave separada, generada solo para este propósito. Google la puede revocar individualmente sin afectar tu contraseña principal ni cerrar tu sesión en otros dispositivos.",
+    "faq2.q": "¿El agente puede borrar correos o cambiar configuración del buzón?",
+    "faq2.a": "El conector, tal como está construido, solo implementa leer y enviar (nunca borra ni cambia configuración). Pero a diferencia del conector OAuth2, la Contraseña de aplicación en sí <strong>sí tiene</strong> permisos técnicos para hacer más que eso — la restricción es de diseño del conector, no del token. Si necesitas esa garantía a nivel de credencial, usa el conector OAuth2.",
+    "faq3.q": "¿Dónde queda guardada la Contraseña de aplicación?",
+    "faq3.a": "Como secreto en el almacén de credenciales de la plataforma, asociado a tu usuario. La interfaz nunca vuelve a mostrarla; solo indica \"definida\". Para cambiarla, pega una nueva en el formulario; para conservarla al editar otros campos, deja el campo vacío.",
+    "faq4.q": "¿Expira la Contraseña de aplicación?",
+    "faq4.a": "No, permanece activa indefinidamente hasta que la revoques manualmente o desactives la verificación en 2 pasos (lo cual revoca todas las Contraseñas de aplicación automáticamente).",
+    "faq5.q": "¿Qué hago si la Contraseña de aplicación se compromete?",
+    "faq5.a": "<li>Ve a <a href=\"https://myaccount.google.com/apppasswords\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/apppasswords</a> y elimina la clave comprometida (un clic, efecto inmediato).</li> <li>Genera una nueva.</li> <li>Actualízala en el formulario del conector.</li>",
+    "callout.practicas.title": "Buenas prácticas",
+    "callout.practicas.body": "Genera una Contraseña de aplicación dedicada solo a Ruvic (no reutilices una que ya uses en otra app); nunca la compartas por canales no seguros; y revisa periódicamente en <a href=\"https://myaccount.google.com/apppasswords\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/apppasswords</a> qué contraseñas de aplicación tienes activas."
+  },
+  "en": {
+    "doc_title": "Gmail (IMAP/SMTP) Connector — Ruvic",
+    "toc_title": "Contents",
+    "toc.que_es": "What it is and what it’s for",
+    "toc.prerrequisitos": "Prerequisites",
+    "toc.configuracion_fabricante": "Vendor / provider setup",
+    "toc.permisos": "Required permissions",
+    "toc.configuracion_ruvic": "Configuration in Ruvic",
+    "toc.verificacion": "Verification",
+    "toc.solucion_problemas": "Troubleshooting",
+    "toc.faq_seguridad": "FAQ and security notes",
+    "guide_title": "Gmail (IMAP/SMTP)",
+    "section.que_es": "What it is and what it’s for",
+    "que_es.intro": "The Gmail (IMAP/SMTP) connector lets the Ruvic agent read, search and send email from your Gmail mailbox, using the simplest possible method: your email and an <strong>App Password</strong> that you generate yourself in your Google account. You don't need to ask a system administrator for anything or create anything in Google Cloud. Once configured, you can ask the agent things like:",
+    "que_es.li1": "\"Check if new support emails arrived and summarize them.\"",
+    "que_es.li2": "\"Search last week's emails mentioning 'pending invoice'.\"",
+    "que_es.li3": "\"Email the client confirming the ticket was resolved, with the report attached.\"",
+    "que_es.ops_lead": "Supported operations:",
+    "table.operacion": "Operation",
+    "table.que_hace": "What it does",
+    "op.list": "Searches/lists emails using filters (same search syntax as Gmail's web interface)",
+    "op.read": "Reads the detail and body of an email",
+    "op.send": "Sends a text email",
+    "op.send_attach": "Sends an email with a file attachment (max 20 MB)",
+    "callout.autoservicio.title": "100% self-service setup",
+    "callout.autoservicio.body": "Unlike other Gmail connection methods, this one <strong>requires no Google Cloud Console setup and no OAuth authorization screen</strong>. You just need your email and a 16-character key that Google generates in seconds.",
+    "section.prerrequisitos": "Prerequisites",
+    "prereq.li1": "A <strong>Gmail</strong> account (personal @gmail.com or Google Workspace).",
+    "prereq.li2": "<strong>2-Step Verification (2FA) enabled</strong> on that account — required to generate an App Password. If you don't have it, enable it at <a href=\"https://myaccount.google.com/security\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/security</a> before continuing.",
+    "prereq.li3": "No special admin permissions or Google Cloud Console access needed.",
+    "section.configuracion_fabricante": "Vendor / provider setup",
+    "fab.intro": "You will generate an <strong>App Password</strong> in your Google account. This takes under 2 minutes, with nothing to install and no approval needed from anyone.",
+    "step1.title": "Verify that 2-Step Verification is enabled.",
+    "step1.body": "Go to <a href=\"https://myaccount.google.com/security\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/security</a>. If \"2-Step Verification\" shows as \"Off\", enable it first (with your phone, a security key, or the Google Authenticator app) — this is a Google requirement, not a Ruvic one.",
+    "step2.title": "Open the App Passwords generator.",
+    "step2.body": "Go directly to <a href=\"https://myaccount.google.com/apppasswords\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/apppasswords</a> (it will ask you to sign in again for security).",
+    "step3.title": "Create the password.",
+    "step3.body": "Type a recognizable name (e.g. \"Ruvic\") in the text field and click <em>Create</em>.",
+    "ph.create": "[ Screenshot: \"App passwords\" screen with the name field and Create button — replace with assets/img/apppassword-create.png ]",
+    "step4.title": "Copy the generated key.",
+    "step4.body": "Google shows a 16-character key in groups of 4 (e.g. <code>abcd efgh ijkl mnop</code>). Copy it as-is — with or without spaces works the same. <strong>This is the only time Google shows it</strong>, save it before closing the window.",
+    "section.permisos": "Required permissions",
+    "permisos.intro": "An App Password grants full mail access (equivalent to signing into the account via IMAP/SMTP) — there is no way to limit it to \"read-only\" or to specific operations, unlike OAuth2 scopes. The connector itself only uses that key to read and send email (it never deletes, never changes settings), but the key alone doesn't technically enforce that.",
+    "table.acceso": "Access",
+    "table.scope_uso": "Why the connector needs it",
+    "acceso.imap": "Search and read emails (<code>mail.list</code>, <code>mail.read</code>)",
+    "acceso.smtp": "Send emails (<code>mail.send</code>, <code>mail.send_with_attachment</code>)",
+    "callout.restringido.title": "Need genuinely restricted access?",
+    "callout.restringido.body": "If your organization requires the agent to only <em>read</em> mail (never send), or you want granular OAuth-style scopes, use the <strong>Gmail (OAuth2) connector</strong> instead, which does support per-operation permissions.",
+    "section.configuracion_ruvic": "Configuration in Ruvic",
+    "ruvic.intro": "Go to <strong>Settings → Connectors</strong>, find the <strong>Gmail (IMAP/SMTP)</strong> card and click <strong>Configure</strong>. Fill in the form with the values from the previous section:",
+    "table.campo": "Form field",
+    "table.valor": "Value",
+    "field.email.label": "Gmail email",
+    "field.email.value": "Your full Gmail address (e.g. <code>soporte@tuempresa.com</code>)",
+    "field.pass.label": "App Password",
+    "field.pass.value": "The 16-character key from step 4 of the previous section",
+    "field.timeout.label": "Request timeout",
+    "field.timeout.value": "Optional; defaults to <code>30</code> seconds",
+    "ruvic.probar": "Save and click <span class=\"ruvic-button\">Test connection</span> — the platform will log in via IMAP with those credentials and confirm they work. No additional steps, no redirect to Google.",
+    "ph.form": "[ Screenshot: Gmail (IMAP/SMTP) connector form in Settings → Connectors — replace with assets/img/imap-form.png ]",
+    "section.verificacion": "Verification",
+    "verif1.title": "Successful connection test.",
+    "verif1.body": "The <em>Test connection</em> button should return: <em>\"Successful connection to mailbox soporte@tuempresa.com\"</em>. The connector card switches to <strong>Configured</strong>.",
+    "verif2.title": "Minimal test automation.",
+    "verif2.body": "Open a new conversation with the agent and ask:",
+    "verif2.quote": "<em>\"Search Gmail for unread emails from the last 3 days and summarize them.\"</em>",
+    "verif2.after": "The agent should reply with real emails from the configured mailbox. If it does, the connector is fully operational.",
+    "section.solucion_problemas": "Troubleshooting",
+    "table.sintoma": "Message / symptom",
+    "table.causa": "Likely cause and fix",
+    "prob1.s": "\"Authentication failed: verify the email is correct and the password is a valid App Password\"",
+    "prob1.f": "Most common cause: the account's regular password was pasted instead of an App Password. Google always rejects those for IMAP/SMTP since 2022. Generate a new App Password (previous section) and paste it in full.",
+    "prob2.s": "The \"App passwords\" option doesn't appear in Google",
+    "prob2.f": "2-Step Verification isn't enabled (step 1 of the previous section). Google hides the App Password generator until 2FA is active.",
+    "prob3.s": "\"Could not connect to imap.gmail.com:993 … (timeout)\"",
+    "prob3.f": "The Ruvic platform has no network egress to Gmail (corporate firewall, restrictive proxy). Check that outbound ports 993 (IMAP) and 465 (SMTP) are allowed.",
+    "prob4.s": "Connector shows \"Not configured\" after saving",
+    "prob4.f": "A required field was left empty. Open it again and fill in the email and App Password.",
+    "section.faq_seguridad": "FAQ and security notes",
+    "faq1.q": "Is this the same as using my regular password?",
+    "faq1.a": "No. An App Password is a separate key, generated only for this purpose. Google can revoke it individually without affecting your main password or signing you out of other devices.",
+    "faq2.q": "Can the agent delete emails or change mailbox settings?",
+    "faq2.a": "The connector, as built, only implements read and send (it never deletes or changes settings). But unlike the OAuth2 connector, the App Password itself <strong>does technically have</strong> permission to do more than that — the restriction is a connector design choice, not enforced by the token. If you need that guarantee at the credential level, use the OAuth2 connector.",
+    "faq3.q": "Where is the App Password stored?",
+    "faq3.a": "As a secret in the platform's credential store, tied to your user. The UI never displays it again; it only shows \"set\". To change it, paste a new one into the form; to keep it while editing other fields, leave the field empty.",
+    "faq4.q": "Does the App Password expire?",
+    "faq4.a": "No, it stays active indefinitely until you manually revoke it or disable 2-Step Verification (which automatically revokes all App Passwords).",
+    "faq5.q": "What if the App Password is compromised?",
+    "faq5.a": "<li>Go to <a href=\"https://myaccount.google.com/apppasswords\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/apppasswords</a> and delete the compromised key (one click, immediate effect).</li> <li>Generate a new one.</li> <li>Update it in the connector form.</li>",
+    "callout.practicas.title": "Best practices",
+    "callout.practicas.body": "Generate an App Password dedicated only to Ruvic (don't reuse one you already use for another app); never share it over insecure channels; and periodically review at <a href=\"https://myaccount.google.com/apppasswords\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/apppasswords</a> which app passwords you have active."
+  }
+};
+    /* El portal aplica el idioma del usuario (localStorage ruvic-docs-lang)
+       y actualiza [data-i18n], [data-i18n-placeholder] y [data-i18n-alt]. */
+  </script>
 </body>
 </html>
