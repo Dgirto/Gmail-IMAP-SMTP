@@ -20,7 +20,7 @@ triggers:
 
 # Conector Gmail IMAP/SMTP (ruvic_gmail_imap_connector)
 
-Librería Python para leer y enviar correos en Gmail vía IMAP/SMTP con usuario y Contraseña de aplicación. Está **preinstalada en el runtime** cuando el conector está configurado (si no, instálala con `pip install git+https://github.com/Dgirto/Gmail-IMAP.git#subdirectory=lib`). No usa OAuth2 ni requiere configuración en Google Cloud Console — solo depende de la biblioteca estándar de Python (`imaplib`, `smtplib`, `email`), sin dependencias externas.
+Librería Python para leer y enviar correos en Gmail vía IMAP/SMTP con usuario y Contraseña de aplicación. Está **preinstalada en el runtime** cuando el conector está configurado (si no, instálala con `pip install git+https://github.com/Dgirto/Gmail-IMAP-SMTP.git#subdirectory=lib`). No usa OAuth2 ni requiere configuración en Google Cloud Console — solo depende de la biblioteca estándar de Python (`imaplib`, `smtplib`, `email`), sin dependencias externas.
 
 ## Regla crítica de credenciales
 

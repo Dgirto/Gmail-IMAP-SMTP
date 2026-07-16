@@ -10,7 +10,7 @@
   "keywords": ["email", "correo", "correos", "gmail", "imap", "smtp", "app password", "contraseña de aplicación", "google"],
   "library": {
     "package": "ruvic-gmail-imap-connector",
-    "install": "pip install git+https://github.com/Dgirto/Gmail-IMAP.git#subdirectory=lib",
+    "install": "pip install git+https://github.com/Dgirto/Gmail-IMAP-SMTP.git#subdirectory=lib",
     "import_name": "ruvic_gmail_imap_connector"
   },
   "auth_modes": [

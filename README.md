@@ -14,7 +14,7 @@ distinta en el catálogo de conectores.
 ## Instalación
 
 ```bash
-pip install git+https://github.com/Dgirto/Gmail-IMAP.git#subdirectory=lib
+pip install git+https://github.com/Dgirto/Gmail-IMAP-SMTP.git#subdirectory=lib
 ```
 
 Python 3.10+. **Sin dependencias externas** — usa solo la librería

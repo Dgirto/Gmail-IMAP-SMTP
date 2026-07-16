@@ -25,7 +25,7 @@ def test_connection() -> tuple[bool, str]:
             False,
             "La librería ruvic-gmail-imap-connector no está instalada. "
             "Instala con: pip install git+https://github.com/Dgirto/"
-            "Gmail-IMAP.git#subdirectory=lib",
+            "Gmail-IMAP-SMTP.git#subdirectory=lib",
         )
 
     try:
