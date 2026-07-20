@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "description": "Lectura y envío de correos en Gmail mediante IMAP/SMTP con usuario y Contraseña de aplicación, sin flujo OAuth",
   "description_en": "Read and send Gmail messages via IMAP/SMTP with a username and App Password, no OAuth flow",
+  "icon": "icon.svg",
   "category": "messaging",
   "category_en": "messaging",
   "keywords": ["email", "correo", "correos", "gmail", "imap", "smtp", "app password", "contraseña de aplicación", "google"],

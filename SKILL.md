@@ -1,5 +1,5 @@
 ---
-name: gmail_imap
+name: gmail-imap
 description: >
   Usa la librería ruvic_gmail_imap_connector para leer y enviar correos en
   Gmail vía IMAP/SMTP - buscar/listar correos con filtros (list_messages),
