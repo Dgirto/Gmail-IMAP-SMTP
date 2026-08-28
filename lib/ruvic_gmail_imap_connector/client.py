@@ -48,6 +48,10 @@ def _validate_no_header_injection(**fields: str | None) -> None:
     """Evita inyección de cabeceras de correo (CRLF) en campos que se
     interpolan directamente en el mensaje MIME (to/cc/bcc/subject)."""
     for name, value in fields.items():
+        if value is not None and not isinstance(value, str):
+            raise ImapSmtpDataError(
+                f"El campo '{name}' debe ser un string, no {type(value).__name__}."
+            )
         if value and ("\r" in value or "\n" in value):
             raise ImapSmtpDataError(
                 f"El campo '{name}' contiene saltos de línea, lo cual no está "
@@ -179,7 +183,12 @@ class ImapSmtpClient:
             >>> client.list_messages(query="is:unread", max_results=5)
             [{'id': '18234', 'subject': 'Factura pendiente', 'from': 'a@b.com', ...}]
         """
-        max_results = max(1, min(int(max_results), 100))
+        try:
+            max_results = max(1, min(int(max_results), 100))
+        except (TypeError, ValueError) as exc:
+            raise ImapSmtpDataError(
+                f"max_results inválido: {max_results!r}. Debe ser un número entero."
+            ) from exc
         conn = self._connect_imap()
         try:
             typ, _ = conn.select(mailbox, readonly=True)
@@ -246,6 +255,10 @@ class ImapSmtpClient:
             >>> client.get_message("18234")
             {'id': '18234', 'subject': 'Hola', 'body_text': 'Buen día...', ...}
         """
+        if not isinstance(message_id, str) or not message_id.strip():
+            raise ImapSmtpDataError(
+                f"message_id debe ser un string no vacío, no {message_id!r}."
+            )
         conn = self._connect_imap()
         try:
             conn.select(mailbox, readonly=True)
